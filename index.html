@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1 Review: High Voltage Safety</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            min-height: 500px;
+        }
+        h1 {
+            color: #1565c0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #1565c0;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .question-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            border-left: 5px solid #1565c0;
+            display: none;
+        }
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number {
+            font-size: 14px;
+            color: #1565c0;
+            margin-bottom: 5px;
+        }
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover {
+            background-color: #e0e0e0;
+            border-color: #bdbdbd;
+        }
+        .option.selected {
+            background-color: #bbdefb;
+            border-color: #1565c0;
+        }
+        .option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+        .option.incorrect {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+        .option-label {
+            margin-left: 10px;
+            font-size: 16px;
+        }
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .checkbox-option:hover {
+            background-color: #e0e0e0;
+            border-color: #bdbdbd;
+        }
+        .checkbox-option.selected {
+            background-color: #bbdefb;
+            border-color: #1565c0;
+        }
+        .checkbox-option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+        .checkbox-option.incorrect {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #aaa;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .checkbox.checked::after {
+            content: "✓";
+            font-weight: bold;
+            color: #1565c0;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .feedback.correct {
+            background-color: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            color: #2e7d32;
+        }
+        .feedback.incorrect {
+            background-color: #ffebee;
+            border: 1px solid #ef9a9a;
+            color: #c62828;
+        }
+        .attempts-counter {
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            margin: 10px 5px;
+        }
+        .check-btn {
+            background-color: #1565c0;
+            color: white;
+        }
+        .check-btn:hover {
+            background-color: #0d47a1;
+        }
+        .check-btn:disabled {
+            background-color: #bbbbbb;
+            cursor: not-allowed;
+        }
+        .next-btn {
+            background-color: #4caf50;
+            color: white;
+            display: none;
+        }
+        .next-btn:hover {
+            background-color: #388e3c;
+        }
+        .try-again-btn {
+            background-color: #ff9800;
+            color: white;
+            display: none;
+        }
+        .try-again-btn:hover {
+            background-color: #f57c00;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .final-score {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #1565c0;
+            display: none;
+        }
+        .completion-message {
+            text-align: center;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #a5d6a7;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Chapter 1 Review: High Voltage Safety</h1>
+        
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="attempts-counter" id="attempts-counter">Attempts: 0/3</div>
+        
+        <!-- Question 1 -->
+        <div class="question-container active" id="question1-container">
+            <div class="question-number">Question 1 of 4</div>
+            <p class="question">High voltage in electric vehicles is defined as greater than:</p>
+            
+            <div class="options">
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                    <strong>A)</strong> <span class="option-label">40V DC or 20V AC RMS</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                    <strong>B)</strong> <span class="option-label">50V DC or 25V AC RMS</span>
+                </div>
+                <div class="option" data-correct="true" onclick="selectOption(this, 'question1')">
+                    <strong>C)</strong> <span class="option-label">60V DC or 30V AC RMS</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                    <strong>D)</strong> <span class="option-label">100V DC or 50V AC RMS</span>
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback1"></div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-container" id="question2-container">
+            <div class="question-number">Question 2 of 4</div>
+            <p class="question">The standardized color for high voltage wiring is:</p>
+            
+            <div class="options">
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                    <strong>A)</strong> <span class="option-label">Red</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                    <strong>B)</strong> <span class="option-label">Yellow and Black</span>
+                </div>
+                <div class="option" data-correct="true" onclick="selectOption(this, 'question2')">
+                    <strong>C)</strong> <span class="option-label">Orange</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                    <strong>D)</strong> <span class="option-label">Blue</span>
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback2"></div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-container" id="question3-container">
+            <div class="question-number">Question 3 of 4</div>
+            <p class="question">Select all components on an electric school bus that typically use high voltage:</p>
+            
+            <div class="options" id="checkbox-options">
+                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Battery packs</span>
+                </div>
+                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Headlights</span>
+                </div>
+                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Electric motors/generators</span>
+                </div>
+                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Windshield wipers</span>
+                </div>
+                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Air conditioning compressors</span>
+                </div>
+                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Dashboard instruments</span>
+                </div>
+                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                    <div class="checkbox"></div>
+                    <span class="option-label">Inverters</span>
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback3"></div>
+        </div>
+        
+        <!-- Question 4 -->
+        <div class="question-container" id="question4-container">
+            <div class="question-number">Question 4 of 4</div>
+            <p class="question">Why is it important to be able to visually identify high voltage systems? (Select the best answer)</p>
+            
+            <div class="options">
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                    <strong>A)</strong> <span class="option-label">To make the bus look more organized</span>
+                </div>
+                <div class="option" data-correct="true" onclick="selectOption(this, 'question4')">
+                    <strong>B)</strong> <span class="option-label">To ensure technicians can quickly identify potentially dangerous components</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                    <strong>C)</strong> <span class="option-label">Because orange is easier to see in low light</span>
+                </div>
+                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                    <strong>D)</strong> <span class="option-label">To comply with emissions regulations</span>
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback4"></div>
+        </div>
+        
+        <div class="final-score" id="final-score"></div>
+        
+        <div class="completion-message" id="completion-message">
+            <h2>Congratulations!</h2>
+            <p>You have completed the Chapter 1 Review.</p>
+            <p>You now understand the fundamentals of high voltage classification and identification in electric school buses.</p>
+        </div>
+        
+        <div class="button-container">
+            <button class="btn check-btn" id="check-btn" onclick="checkAnswer()">Check Answer</button>
+            <button class="btn try-again-btn" id="try-again-btn" onclick="tryAgain()">Try Again</button>
+            <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+    </div>
+    
+    <script>
+        // Quiz data
+        const questions = [
+            {
+                id: 'question1',
+                container: document.getElementById('question1-container'),
+                feedback: document.getElementById('feedback1'),
+                feedbackMessages: {
+                    correct: "<strong>Correct!</strong> High voltage in electric vehicles is defined as greater than 60V DC or 30V AC RMS. This is an important safety threshold to remember.",
+                    incorrect: [
+                        "<strong>Incorrect.</strong> That's not the correct voltage threshold for high voltage classification in electric vehicles. Try again!",
+                        "<strong>Still incorrect.</strong> Think about the SAE definition for high voltage in electrified vehicles. It's higher than what you selected.",
+                        "<strong>Incorrect.</strong> The correct answer is C (60V DC or 30V AC RMS). According to SAE standards, high voltage in electric vehicles is defined as greater than 60V DC or 30V AC RMS."
+                    ]
+                },
+                multiSelect: false,
+                attempts: 0,
+                correct: false,
+                selected: null
+            },
+            {
+                id: 'question2',
+                container: document.getElementById('question2-container'),
+                feedback: document.getElementById('feedback2'),
+                feedbackMessages: {
+                    correct: "<strong>Correct!</strong> Orange is the standardized color for high voltage wiring in vehicles. This color coding provides an immediate visual warning to technicians and first responders.",
+                    incorrect: [
+                        "<strong>Incorrect.</strong> That's not the standardized color for high voltage wiring. Try again!",
+                        "<strong>Still incorrect.</strong> Think about a bright, highly visible color that provides clear visual indication of danger.",
+                        "<strong>Incorrect.</strong> The correct answer is C (Orange). Orange is the standardized color for high voltage wiring, as defined by SAE J1673 standards."
+                    ]
+                },
+                multiSelect: false,
+                attempts: 0,
+                correct: false,
+                selected: null
+            },
+            {
+                id: 'question3',
+                container: document.getElementById('question3-container'),
+                feedback: document.getElementById('feedback3'),
+                feedbackMessages: {
+                    correct: "<strong>Correct!</strong> Battery packs, electric motors/generators, air conditioning compressors, and inverters all typically use high voltage in electric school buses.",
+                    incorrect: [
+                        "<strong>Incorrect.</strong> Some of your selections are wrong. Remember, high voltage components operate at greater than 60V DC.",
+                        "<strong>Still incorrect.</strong> Think about the main propulsion and power conversion components that would require high voltage to function effectively.",
+                        "<strong>Incorrect.</strong> The correct answers are: Battery packs, Electric motors/generators, Air conditioning compressors, and Inverters. These all operate using high voltage (>60V DC)."
+                    ]
+                },
+                multiSelect: true,
+                attempts: 0,
+                correct: false,
+                selected: []
+            },
+            {
+                id: 'question4',
+                container: document.getElementById('question4-container'),
+                feedback: document.getElementById('feedback4'),
+                feedbackMessages: {
+                    correct: "<strong>Correct!</strong> Being able to quickly identify high voltage components is critical for technician safety. The orange color coding provides an immediate visual warning of potential danger.",
+                    incorrect: [
+                        "<strong>Incorrect.</strong> Think about safety implications of high voltage systems. Try again!",
+                        "<strong>Still incorrect.</strong> Consider who needs to identify these systems and why it would be important for them.",
+                        "<strong>Incorrect.</strong> The correct answer is B (To ensure technicians can quickly identify potentially dangerous components). Visual identification of high voltage systems is critical for technician and first responder safety."
+                    ]
+                },
+                multiSelect: false,
+                attempts: 0,
+                correct: false,
+                selected: null
+            }
+        ];
+        
+        // UI elements
+        const checkBtn = document.getElementById('check-btn');
+        const tryAgainBtn = document.getElementById('try-again-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const attemptsCounter = document.getElementById('attempts-counter');
+        const finalScore = document.getElementById('final-score');
+        const completionMessage = document.getElementById('completion-message');
+        
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        const maxAttempts = 3;
+        
+        // Initialize progress bar
+        updateProgressBar();
+        
+        // Handle single-select option selection
+        function selectOption(option, questionId) {
+            const currentQuestion = questions.find(q => q.id === questionId);
+            
+            // Don't allow selection if max attempts reached and feedback is shown
+            if (currentQuestion.attempts >= maxAttempts && currentQuestion.feedback.style.display === 'block') return;
+            
+            // Remove selection from other options
+            const allOptions = option.parentElement.querySelectorAll('.option');
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                // Also remove incorrect/correct classes when making a new selection
+                opt.classList.remove('incorrect', 'correct');
+            });
+            
+            // Select this option
+            option.classList.add('selected');
+            currentQuestion.selected = option;
+            
+            // Enable check button
+            checkBtn.disabled = false;
+        }
+        
+        // Handle multi-select (checkbox) option toggling
+        function toggleCheckbox(option) {
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            // Don't allow selection if max attempts reached and feedback is shown
+            if (currentQuestion.attempts >= maxAttempts && currentQuestion.feedback.style.display === 'block') return;
+            
+            // Remove incorrect/correct classes when making a new selection
+            option.classList.remove('incorrect', 'correct');
+            
+            const checkbox = option.querySelector('.checkbox');
+            
+            if (checkbox.classList.contains('checked')) {
+                // Uncheck
+                checkbox.classList.remove('checked');
+                option.classList.remove('selected');
+                
+                // Remove from selected array
+                const index = currentQuestion.selected.indexOf(option);
+                if (index > -1) {
+                    currentQuestion.selected.splice(index, 1);
+                }
+            } else {
+                // Check
+                checkbox.classList.add('checked');
+                option.classList.add('selected');
+                
+                // Add to selected array
+                if (!currentQuestion.selected.includes(option)) {
+                    currentQuestion.selected.push(option);
+                }
+            }
+            
+            // Enable check button if at least one option is selected
+            checkBtn.disabled = currentQuestion.selected.length === 0;
+        }
+        
+        // Check current answer
+        function checkAnswer() {
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            if (!currentQuestion.multiSelect && !currentQuestion.selected) {
+                alert("Please select an answer before checking.");
+                return;
+            }
+            
+            if (currentQuestion.multiSelect && currentQuestion.selected.length === 0) {
+                alert("Please select at least one option before checking.");
+                return;
+            }
+            
+            // Increment attempt counter
+            currentQuestion.attempts++;
+            attemptsCounter.textContent = `Attempts: ${currentQuestion.attempts}/3`;
+            
+            let isCorrect = false;
+            
+            if (!currentQuestion.multiSelect) {
+                // Single select question
+                isCorrect = currentQuestion.selected.getAttribute('data-correct') === 'true';
+                
+                if (isCorrect) {
+                    currentQuestion.selected.classList.add('correct');
+                    currentQuestion.feedback.className = 'feedback correct';
+                    currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.correct;
+                    currentQuestion.correct = true;
+                    correctAnswers++;
+                } else {
+                    currentQuestion.selected.classList.add('incorrect');
+                    currentQuestion.feedback.className = 'feedback incorrect';
+                    
+                    // Show different feedback based on attempt number
+                    if (currentQuestion.attempts >= maxAttempts) {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[2];
+                        
+                        // Show correct answer
+                        const correctOption = Array.from(currentQuestion.selected.parentElement.querySelectorAll('.option')).find(opt => opt.getAttribute('data-correct') === 'true');
+                        correctOption.classList.add('correct');
+                    } else if (currentQuestion.attempts === 2) {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[1];
+                    } else {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[0];
+                    }
+                }
+            } else {
+                // Multi-select question
+                const allOptions = currentQuestion.container.querySelectorAll('.checkbox-option');
+                let allSelectionsCorrect = true;
+                let allCorrectSelected = true;
+                
+                allOptions.forEach(option => {
+                    const isOptionCorrect = option.getAttribute('data-correct') === 'true';
+                    const isOptionSelected = option.querySelector('.checkbox').classList.contains('checked');
+                    
+                    if (isOptionCorrect && !isOptionSelected) {
+                        allCorrectSelected = false;
+                    }
+                    
+                    if (!isOptionCorrect && isOptionSelected) {
+                        allSelectionsCorrect = false;
+                    }
+                    
+                    // If on final attempt, show correct/incorrect status
+                    if (currentQuestion.attempts >= maxAttempts) {
+                        if (isOptionCorrect) {
+                            option.classList.add('correct');
+                        } else if (isOptionSelected) {
+                            option.classList.add('incorrect');
+                        }
+                    }
+                });
+                
+                isCorrect = allSelectionsCorrect && allCorrectSelected;
+                
+                if (isCorrect) {
+                    currentQuestion.feedback.className = 'feedback correct';
+                    currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.correct;
+                    currentQuestion.correct = true;
+                    correctAnswers++;
+                    
+                    // Add correct class to all selected options
+                    currentQuestion.selected.forEach(option => {
+                        option.classList.add('correct');
+                    });
+                } else {
+                    currentQuestion.feedback.className = 'feedback incorrect';
+                    
+                    // Show different feedback based on attempt number
+                    if (currentQuestion.attempts >= maxAttempts) {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[2];
+                    } else if (currentQuestion.attempts === 2) {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[1];
+                    } else {
+                        currentQuestion.feedback.innerHTML = currentQuestion.feedbackMessages.incorrect[0];
+                    }
+                }
+            }
+            
+            // Show feedback
+            currentQuestion.feedback.style.display = 'block';
+            
+            // Show next button if correct or max attempts reached
+            if (isCorrect || currentQuestion.attempts >= maxAttempts) {
+                nextBtn.style.display = 'block';
+                checkBtn.style.display = 'none';
+            } else {
+                tryAgainBtn.style.display = 'block';
+                checkBtn.style.display = 'none';
+            }
+        }
+        
+        // Try again function
+        function tryAgain() {
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            // Don't reset correct answers
+            if (currentQuestion.correct) return;
+            
+            if (!currentQuestion.multiSelect) {
+                // Single select - reset incorrect selection appearance
+                if (currentQuestion.selected) {
+                    currentQuestion.selected.classList.remove('incorrect', 'selected');
+                    currentQuestion.selected = null;
+                }
+            } else {
+                // Multi-select - reset incorrect selections appearance
+                currentQuestion.selected.forEach(option => {
+                    option.classList.remove('incorrect');
+                });
+                
+                // We don't clear the selections themselves, just the visual indicator of incorrectness
+            }
+            
+            // Hide feedback
+            currentQuestion.feedback.style.display = 'none';
+            
+            // Show check button, hide try again button
+            tryAgainBtn.style.display = 'none';
+            checkBtn.style.display = 'block';
+            checkBtn.disabled = !currentQuestion.multiSelect && !currentQuestion.selected;
+        }
+        
+        // Go to next question
+        function nextQuestion() {
+            // Hide current question
+            questions[currentQuestionIndex].container.classList.remove('active');
+            
+            // Move to next question
+            currentQuestionIndex++;
+            
+            // If quiz is done, show final score
+            if (currentQuestionIndex >= questions.length) {
+                finalScore.textContent = `Your Score: ${correctAnswers}/${questions.length}`;
+                finalScore.style.display = 'block';
+                completionMessage.style.display = 'block';
+                nextBtn.style.display = 'none';
+                return;
+            }
+            
+            // Show new question
+            questions[currentQuestionIndex].container.classList.add('active');
+            
+            // Reset UI elements
+            checkBtn.style.display = 'block';
+            checkBtn.disabled = true;
+            nextBtn.style.display = 'none';
+            tryAgainBtn.style.display = 'none';
+            
+            // Reset attempts counter for new question
+            attemptsCounter.textContent = `Attempts: 0/3`;
+            
+            // Initialize selected array for multi-select questions
+            if (questions[currentQuestionIndex].multiSelect) {
+                questions[currentQuestionIndex].selected = [];
+            }
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+    </script>
+</body>
+</html>
