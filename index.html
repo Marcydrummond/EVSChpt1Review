@@ -785,5 +785,17 @@
             }, 500);
         };
     </script>
+    <script>
+// Add this script to allow dynamic resizing from the quiz
+window.addEventListener('message', function(e) {
+    if (e.data.type === 'resize-iframe') {
+        var iframe = document.getElementById('quiz-iframe');
+        if (iframe) {
+            iframe.style.height = (e.data.height + 20) + 'px'; // Add 20px buffer
+            iframe.parentElement.style.height = (e.data.height + 20) + 'px';
+        }
+    }
+});
+</script>
 </body>
 </html>
