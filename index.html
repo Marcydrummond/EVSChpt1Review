@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=1800px, initial-scale=.65">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chapter 1 Review: High Voltage Safety</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             color: #333;
+            height: 100%;
+            overflow-y: auto;
         }
         .quiz-container {
             max-width: 800px;
@@ -18,20 +20,21 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 20px;
-            min-height: 2000px;
+            padding: 15px;
+            min-height: auto;
         }
         h1 {
             color: #1565c0;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            font-size: 22px;
         }
         .progress-bar-container {
             width: 100%;
             background-color: #e0e0e0;
-            height: 10px;
+            height: 8px;
             border-radius: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             overflow: hidden;
         }
         .progress-bar {
@@ -41,8 +44,8 @@
             transition: width 0.5s ease;
         }
         .question-container {
-            margin-bottom: 30px;
-            padding: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
             background-color: #e3f2fd;
             border-radius: 8px;
             border-left: 5px solid #1565c0;
@@ -50,10 +53,10 @@
         }
         .question-container.active {
             display: block;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .question-number {
@@ -62,20 +65,20 @@
             margin-bottom: 5px;
         }
         .question {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
         .option {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 8px 12px;
             background-color: #f5f5f5;
             border: 2px solid #e0e0e0;
             border-radius: 5px;
@@ -100,12 +103,12 @@
         }
         .option-label {
             margin-left: 10px;
-            font-size: 16px;
+            font-size: 14px;
         }
         .checkbox-option {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 8px 12px;
             background-color: #f5f5f5;
             border: 2px solid #e0e0e0;
             border-radius: 5px;
@@ -130,8 +133,8 @@
             border-color: #f44336;
         }
         .checkbox {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 2px solid #aaa;
             border-radius: 4px;
             display: flex;
@@ -145,10 +148,11 @@
             color: #1565c0;
         }
         .feedback {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
             display: none;
+            font-size: 14px;
         }
         .feedback.correct {
             background-color: #e8f5e9;
@@ -162,19 +166,19 @@
         }
         .attempts-counter {
             text-align: right;
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             transition: background-color 0.2s;
-            margin: 10px 5px;
+            margin: 8px 5px;
         }
         .check-btn {
             background-color: #1565c0;
@@ -206,24 +210,32 @@
         .button-container {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         .final-score {
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            margin: 20px 0;
+            margin: 15px 0;
             color: #1565c0;
             display: none;
         }
         .completion-message {
             text-align: center;
             background-color: #e8f5e9;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 15px;
             border: 1px solid #a5d6a7;
             display: none;
+        }
+        .completion-message h2 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+        }
+        .completion-message p {
+            margin: 5px 0;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -698,6 +710,16 @@
             const progress = ((currentQuestionIndex) / questions.length) * 100;
             progressBar.style.width = `${progress}%`;
         }
-    </script>
-</body>
-</html>
+        
+        // Communicate with parent frame for height adjustments
+        window.onload = function() {
+            // Notify parent window about content height
+            setInterval(function() {
+                if (window.parent) {
+                    window.parent.postMessage({
+                        type: 'resize-iframe',
+                        height: document.body.scrollHeight
+                    }, '*');
+                }
+            }, 500);
+        };
