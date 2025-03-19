@@ -255,16 +255,16 @@
             <p class="question">High voltage in electric vehicles is defined as greater than:</p>
             
             <div class="options">
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                <div class="option" id="q1-option1" data-correct="false">
                     <strong>A)</strong> <span class="option-label">40V DC or 20V AC RMS</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                <div class="option" id="q1-option2" data-correct="false">
                     <strong>B)</strong> <span class="option-label">50V DC or 25V AC RMS</span>
                 </div>
-                <div class="option" data-correct="true" onclick="selectOption(this, 'question1')">
+                <div class="option" id="q1-option3" data-correct="true">
                     <strong>C)</strong> <span class="option-label">60V DC or 30V AC RMS</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question1')">
+                <div class="option" id="q1-option4" data-correct="false">
                     <strong>D)</strong> <span class="option-label">100V DC or 50V AC RMS</span>
                 </div>
             </div>
@@ -278,16 +278,16 @@
             <p class="question">The standardized color for high voltage wiring is:</p>
             
             <div class="options">
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                <div class="option" id="q2-option1" data-correct="false">
                     <strong>A)</strong> <span class="option-label">Red</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                <div class="option" id="q2-option2" data-correct="false">
                     <strong>B)</strong> <span class="option-label">Yellow and Black</span>
                 </div>
-                <div class="option" data-correct="true" onclick="selectOption(this, 'question2')">
+                <div class="option" id="q2-option3" data-correct="true">
                     <strong>C)</strong> <span class="option-label">Orange</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question2')">
+                <div class="option" id="q2-option4" data-correct="false">
                     <strong>D)</strong> <span class="option-label">Blue</span>
                 </div>
             </div>
@@ -301,31 +301,31 @@
             <p class="question">Select all components on an electric school bus that typically use high voltage:</p>
             
             <div class="options" id="checkbox-options">
-                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option1" data-correct="true">
                     <div class="checkbox"></div>
                     <span class="option-label">Battery packs</span>
                 </div>
-                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option2" data-correct="false">
                     <div class="checkbox"></div>
                     <span class="option-label">Headlights</span>
                 </div>
-                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option3" data-correct="true">
                     <div class="checkbox"></div>
                     <span class="option-label">Electric motors/generators</span>
                 </div>
-                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option4" data-correct="false">
                     <div class="checkbox"></div>
                     <span class="option-label">Windshield wipers</span>
                 </div>
-                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option5" data-correct="true">
                     <div class="checkbox"></div>
                     <span class="option-label">Air conditioning compressors</span>
                 </div>
-                <div class="checkbox-option" data-correct="false" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option6" data-correct="false">
                     <div class="checkbox"></div>
                     <span class="option-label">Dashboard instruments</span>
                 </div>
-                <div class="checkbox-option" data-correct="true" onclick="toggleCheckbox(this)">
+                <div class="checkbox-option" id="q3-option7" data-correct="true">
                     <div class="checkbox"></div>
                     <span class="option-label">Inverters</span>
                 </div>
@@ -340,16 +340,16 @@
             <p class="question">Why is it important to be able to visually identify high voltage systems? (Select the best answer)</p>
             
             <div class="options">
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                <div class="option" id="q4-option1" data-correct="false">
                     <strong>A)</strong> <span class="option-label">To make the bus look more organized</span>
                 </div>
-                <div class="option" data-correct="true" onclick="selectOption(this, 'question4')">
+                <div class="option" id="q4-option2" data-correct="true">
                     <strong>B)</strong> <span class="option-label">To ensure technicians can quickly identify potentially dangerous components</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                <div class="option" id="q4-option3" data-correct="false">
                     <strong>C)</strong> <span class="option-label">Because orange is easier to see in low light</span>
                 </div>
-                <div class="option" data-correct="false" onclick="selectOption(this, 'question4')">
+                <div class="option" id="q4-option4" data-correct="false">
                     <strong>D)</strong> <span class="option-label">To comply with emissions regulations</span>
                 </div>
             </div>
@@ -366,9 +366,9 @@
         </div>
         
         <div class="button-container">
-            <button class="btn check-btn" id="check-btn" onclick="checkAnswer()">Check Answer</button>
-            <button class="btn try-again-btn" id="try-again-btn" onclick="tryAgain()">Try Again</button>
-            <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+            <button class="btn check-btn" id="check-btn">Check Answer</button>
+            <button class="btn try-again-btn" id="try-again-btn">Try Again</button>
+            <button class="btn next-btn" id="next-btn">Next Question</button>
         </div>
     </div>
     
@@ -379,6 +379,12 @@
                 id: 'question1',
                 container: document.getElementById('question1-container'),
                 feedback: document.getElementById('feedback1'),
+                options: [
+                    document.getElementById('q1-option1'),
+                    document.getElementById('q1-option2'),
+                    document.getElementById('q1-option3'),
+                    document.getElementById('q1-option4')
+                ],
                 feedbackMessages: {
                     correct: "<strong>Correct!</strong> High voltage in electric vehicles is defined as greater than 60V DC or 30V AC RMS. This is an important safety threshold to remember.",
                     incorrect: [
@@ -396,6 +402,12 @@
                 id: 'question2',
                 container: document.getElementById('question2-container'),
                 feedback: document.getElementById('feedback2'),
+                options: [
+                    document.getElementById('q2-option1'),
+                    document.getElementById('q2-option2'),
+                    document.getElementById('q2-option3'),
+                    document.getElementById('q2-option4')
+                ],
                 feedbackMessages: {
                     correct: "<strong>Correct!</strong> Orange is the standardized color for high voltage wiring in vehicles. This color coding provides an immediate visual warning to technicians and first responders.",
                     incorrect: [
@@ -413,6 +425,15 @@
                 id: 'question3',
                 container: document.getElementById('question3-container'),
                 feedback: document.getElementById('feedback3'),
+                options: [
+                    document.getElementById('q3-option1'),
+                    document.getElementById('q3-option2'),
+                    document.getElementById('q3-option3'),
+                    document.getElementById('q3-option4'),
+                    document.getElementById('q3-option5'),
+                    document.getElementById('q3-option6'),
+                    document.getElementById('q3-option7')
+                ],
                 feedbackMessages: {
                     correct: "<strong>Correct!</strong> Battery packs, electric motors/generators, air conditioning compressors, and inverters all typically use high voltage in electric school buses.",
                     incorrect: [
@@ -430,6 +451,12 @@
                 id: 'question4',
                 container: document.getElementById('question4-container'),
                 feedback: document.getElementById('feedback4'),
+                options: [
+                    document.getElementById('q4-option1'),
+                    document.getElementById('q4-option2'),
+                    document.getElementById('q4-option3'),
+                    document.getElementById('q4-option4')
+                ],
                 feedbackMessages: {
                     correct: "<strong>Correct!</strong> Being able to quickly identify high voltage components is critical for technician safety. The orange color coding provides an immediate visual warning of potential danger.",
                     incorrect: [
@@ -462,6 +489,38 @@
         // Initialize progress bar
         updateProgressBar();
         
+        // Add event listeners for options
+        function setupOptionListeners() {
+            // Single select options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionId = this.closest('.question-container').id.replace('-container', '');
+                    selectOption(this, questionId);
+                });
+            });
+            
+            // Multi-select options
+            document.querySelectorAll('.checkbox-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    toggleCheckbox(this);
+                });
+            });
+        }
+        
+        // Setup button listeners
+        function setupButtonListeners() {
+            checkBtn.addEventListener('click', checkAnswer);
+            tryAgainBtn.addEventListener('click', tryAgain);
+            nextBtn.addEventListener('click', nextQuestion);
+        }
+        
+        // Run setup on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setupOptionListeners();
+            setupButtonListeners();
+            checkBtn.disabled = true;
+        });
+        
         // Handle single-select option selection
         function selectOption(option, questionId) {
             const currentQuestion = questions.find(q => q.id === questionId);
@@ -469,8 +528,10 @@
             // Don't allow selection if max attempts reached and feedback is shown
             if (currentQuestion.attempts >= maxAttempts && currentQuestion.feedback.style.display === 'block') return;
             
-            // Remove selection from other options
+            // Get all options for this question
             const allOptions = option.parentElement.querySelectorAll('.option');
+            
+            // Remove selection from other options
             allOptions.forEach(opt => {
                 opt.classList.remove('selected');
                 // Also remove incorrect/correct classes when making a new selection
@@ -723,3 +784,6 @@
                 }
             }, 500);
         };
+    </script>
+</body>
+</html>
